@@ -1,0 +1,14 @@
+{
+  "name": "homework1",
+  "version": "1.0.0",
+  "description": "fife homeworks",
+  "main": "homework1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Garegin Antonyan",
+  "license": "ISC",
+  "dependencies": {
+    "random": "^3.0.3"
+  }
+}
