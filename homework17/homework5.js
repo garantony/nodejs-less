@@ -14,6 +14,3 @@ let date = new Date();
 const fileName = os.platform()+ "_" + date.getHours() + "_" + date.getMinutes() + "_" + date.getSeconds() + ".txt";
 
 fs.writeFileSync(fileName, allHw);
-
-
-// console.log(fs.writeFileSync(fileName, allHw));
