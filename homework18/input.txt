@@ -1,1 +1,1 @@
-By default, when you initialize a buffer with alloc
+London is the capital of England
