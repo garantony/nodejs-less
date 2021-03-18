@@ -1,19 +1,14 @@
 // 1. Ստեղծել Promise վերադարձնող ֆունկցիա , որը գեներացնում է 0 - 10 միջակայքի թիվ և ստուգում , եթե թիվը փոքր է 5-ից reject է անում ,
 // հակառակ դեպքում resolve . Աշխատացնել ֆունկցիան և տպել արժեքները։
 
-const numRandom = Math.floor(Math.random() * 11);
-
 function checkNum(min, max) {
-  let rand = Math.floor(Math.random() * (max - min) + min);
-  return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
+    let rand = Math.floor(Math.random() * (max - min) + min);
     if (rand > 5) {
-        resolve()
-    }else{
-      reject()
+      resolve("resolved " + rand)
+    }else {
+      reject("rejected " + rand)
     }
   })
 }
-
-checkNum(0, 10).then(function () {
-    console.log("d")
-})
+checkNum(0, 10).then((date) => console.log(date)).catch((date) => console.log(date));
