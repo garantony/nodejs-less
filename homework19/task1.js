@@ -5,7 +5,7 @@ const fs = require('fs');
 let readStream = fs.createReadStream(__dirname + '/input.txt', {
   highWaterMark: 10
 });
-
-readStream.on('date', function (chunk) {
-  console.log("chunk");
+let r = /[^a-zA-Z]/g;
+readStream.on('data', function (chunk) {
+  console.log(chunk.toString().replace(r, ""));
 });
