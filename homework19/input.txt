@@ -1,0 +1,3 @@
+!@!@@ While#$$% buffering (segmenting &* the data into chunks),
+the size of the(*&^%) buffer depends on the highWaterMark
+parameter!%$%, which is passed to the stream constructor.
