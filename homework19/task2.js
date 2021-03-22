@@ -10,14 +10,11 @@ readStream.on('data', function (chunk) {
   let obj = {
     a: 'ա',
     b: 'բ',
-    // c: 'ց',
-    // d: 'դ',
-    // e: 'ե',
-    // f: 'ֆ',
-    // g: 'գ'
+    c: 'ց',
+    d: 'դ',
+    e: 'ե',
+    f: 'ֆ',
+    g: 'գ'
   };
-  if (chunk.toString() === Object.keys(obj).join("")) {
-    console.log(Object.values(obj).join(''))
-  }
+  console.log(obj[chunk]);
 });
-// console.log(Object.keys(obj))
