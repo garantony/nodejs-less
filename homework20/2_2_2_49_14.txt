@@ -1,0 +1,7 @@
+{
+  "uid": 501,
+  "gid": 20,
+  "username": "apple",
+  "homedir": "/Users/apple",
+  "shell": "/bin/bash"
+}
