@@ -6,7 +6,18 @@ const fs = require('fs');
 let readStream = fs.createReadStream(__dirname + '/homework4Eng.txt', {
   highWaterMark: 1
 });
-
 readStream.on('data', function (chunk) {
-  console.log(chunk.toString().replace());
+  let obj = {
+    a: 'ա',
+    b: 'բ',
+    // c: 'ց',
+    // d: 'դ',
+    // e: 'ե',
+    // f: 'ֆ',
+    // g: 'գ'
+  };
+  if (chunk.toString() === Object.keys(obj).join("")) {
+    console.log(Object.values(obj).join(''))
+  }
 });
+// console.log(Object.keys(obj))
