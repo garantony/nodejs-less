@@ -21,5 +21,5 @@ fs.readdir(__dirname, (err, file) => {
         }
       });
     });
-  }
+   }
 });
