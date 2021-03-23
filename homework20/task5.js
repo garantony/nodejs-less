@@ -10,31 +10,16 @@ fs.readdir(__dirname, (err, file) => {
     fs.mkdir('newDir', (err) => {
       if (err) {
         throw err;
-      } else {
-        // for (var i = 0; i < file.length; i++) {
-        //   fs.stat(file[i], (err, stat) => {
-        //     if (err) {
-        //       throw err;
-        //     } else if (stat.size > 700) {
-        //
-        //
-        //     }
-        //   })
-        // }
-        fs.stat(file, (err, stat) => {
-          if (err) {
-            throw err;
-          }
-          file.forEach((item) => {
-
-            if (stat.size > 700) {
-              console.log(item);
-            }
-          });
-        })
-
-
       }
-    })
+    });
+    file.forEach((item) => {
+      fs.stat(item, (err, stat) => {
+        if (err) {
+          throw err;
+        }else if (stat.size > 700) {
+          fs.createReadStream(item).pipe(fs.createWriteStream('./newDir/' + item));
+        }
+      });
+    });
   }
-})
+});
