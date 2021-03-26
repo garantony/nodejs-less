@@ -1,0 +1,3 @@
+
+Adds a one time listener to the event. This listener is invoked only the next time the event is fired, after which it is removed.
+Returns emitter, so calls can be chained.
