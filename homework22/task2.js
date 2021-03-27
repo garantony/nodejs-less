@@ -3,24 +3,15 @@
 
 const express = require('express');
 const app = express();
+let date = new Date;
 
 app.listen(3000);
-app.get('/users/route', (req, res) => {
-  let date = new Date;
+app.get('/users', (req, res) => {
   res.end(date.getHours() + ':' + date.getMinutes() + '-' + req.method + ' method');
-});
-
-app.post('/users/route', (req, res) => {
-  let date = new Date;
+}).post('/users', (req, res) => {
   res.end(date.getHours() + ':' + date.getMinutes() + '-' + req.method + ' method');
-});
-
-app.put('/users/route', (req, res) => {
-  let date = new Date;
+}).put('/users', (req, res) => {
   res.end(date.getHours() + ':' + date.getMinutes() + '-' + req.method + ' method');
-});
-
-app.delete('/users/route', (req, res) => {
-  let date = new Date;
+}).delete('/users', (req, res) => {
   res.end(date.getHours() + ':' + date.getMinutes() + '-' + req.method + ' method');
 });
