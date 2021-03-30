@@ -31,7 +31,7 @@ app.get('/users', (req, res) => {
     if (err) {
       throw(err)
     }else {
-      fs.writeFileSync(__dirname + '/user.json', '"username:" {}')
+      fs.appendFileSync(__dirname + '/user.json', '"username:" {}')
     }
     fs.readFile(__dirname + '/user.json', 'utf8', (err, date) => {
       if (err) {
