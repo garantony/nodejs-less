@@ -11,41 +11,69 @@
 const express = require('express');
 const app = express();
 const multer = require('multer');
-const fs = require('fs');
-app.use(express.urlencoded({extended: false}));
+const fs = require('fs').promises;
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(express.json());
+const mimeType = require('mime-types');
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
+  destination: function(req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '.' + mimeType.extension(file.mimetype));
+  }
 });
-const upload = multer({storage: storage});
+const upload = multer({
+  storage: storage
+});
 
 app.get('/users', (req, res) => {
   res.end('get');
-}).post('/users', upload.single('image'), (req, res) => {
-  fs.readFile(__dirname + '/user.json', (err, date) => {
-    if (err) {
-      throw(err)
-    }else {
-      fs.appendFileSync(__dirname + '/user.json', '"username:" {}')
+}).post('/users', upload.single('image'), async (req, res) => {
+  const username = req.body.username;
+  const name = req.body.name;
+  const json = JSON.parse(await fs.readFile('user.json', 'utf-8'));
+
+  if (json[username]) {
+    res.json({
+      success: false,
+      data: null,
+      message: 'username is taken'
+    });
+  } else {
+    json[username] = {
+      username,
+      name,
+      image: req.file.path
     }
-    fs.readFile(__dirname + '/user.json', 'utf8', (err, date) => {
-      if (err) {
-        throw(err)
-      } else if (date.includes("username")) {
-        res.json({success: false, data: null, message: 'username is taken'})
-      } else {
-        res.json({success: true, data: req.body + req.file.path, message: 'user created'})
-      }
-
+    await fs.writeFile('user.json', JSON.stringify(json, null, 2))
+    res.json({
+      success: true,
+      data: json[username],
+      message: 'user created'
     })
-
-  })
+  }
 
 });
+app.get('/users/:username', async (req, res) => {
+  const getData = JSON.parse(await fs.readFile('user.json', 'utf-8'));
+  if (getData[req.params.username]) {
+    res.json(getData[req.params.username]);
+  } else {
+    res.json('user not found')
+  }
+}).delete('/users/:username', async (req, res) => {
+  const json = JSON.parse(await fs.readFile('user.json', 'utf-8'));
+
+  if (json[req.params.username]) {
+    delete json[req.params.username];
+    await fs.writeFile('user.json', JSON.stringify(json, null, 2));
+    res.json('user was deleted')
+  } else {
+    res.json('user not found');
+  }
+})
 
 app.listen(3000);
