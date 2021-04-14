@@ -53,10 +53,10 @@ app.get('/users', async (req, res) => {
     })
   }
 });
-app.get('/users/:username', async (req, res) => {
-  const getData = JSON.parse(await fs.readFile('user.json', 'utf-8'));
-  if (getData[req.params.username]) {
-    res.json(getData[req.params.username]);
+app.get('/users/:id', async (req, res) => {
+  const user = await Users.findById(req.params.id)
+  if (user) {
+    res.json(user.username);
   } else {
     res.json('user not found')
   }
