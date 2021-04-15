@@ -60,13 +60,13 @@ app.get('/users/:id', async (req, res) => {
   } else {
     res.json('user not found')
   }
-}).delete('/users/:username', async (req, res) => {
-  const json = JSON.parse(await fs.readFile('user.json', 'utf-8'));
+}).delete('/users/:id', async (req, res) => {
+  const user = await Users.findById(req.params.id)
 
-  if (json[req.params.username]) {
-    delete json[req.params.username];
-    await fs.writeFile('user.json', JSON.stringify(json, null, 2));
-    res.json('user was deleted')
+  if (user) {
+    await fs.unlink(user.image);
+    await user.remove();
+    res.json('user was deleted');
   } else {
     res.json('user not found');
   }
